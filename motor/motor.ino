@@ -1,21 +1,21 @@
 struct motorA
 {
-    //in1 e in2 e o motor A
-    const int in1=1;//porta digita do arduino no in1.
-    const int in2=2;//porta digita do arduino no in2.
+  //in1 e in2 e o motor A
+  const int in1=1;//porta digita do arduino no in1.
+  const int in2=2;//porta digita do arduino no in2.
 };
 
 struct motorB
 {
-    //in3 e in4 e o motor B.
-    const int in3=4;//porta digita do arduino no in3.
-    const int in4=5;//porta digita do arduino no in4.
+  //in3 e in4 e o motor B.
+  const int in3=4;//porta digita do arduino no in3.
+  const int in4=5;//porta digita do arduino no in4.
 };
 
 struct sensor
 {
-    const int sensorUm=7;//porta do sensor 1 no arduino.
-    const int sensorDois=8;//porta do sensor 2 no arduino. 
+  const int sensorUm=7;//porta do sensor 1 no arduino.
+  const int sensorDois=8;//porta do sensor 2 no arduino. 
 };
 struct velocidade
 {
@@ -37,8 +37,8 @@ void setup()
   pinMode(mB.in4, OUTPUT);
   pinMode(v.enA, OUTPUT);
   pinMode(v.enB, OUTPUT);
-  pinMode(s.sensorUm, INPUT);
-  pinMode(s.sensorDois, INPUT);
+  //pinMode(s.sensorUm, INPUT);
+  //pinMode(s.sensorDois, INPUT);
   Serial.begin(9600);
 }
 
@@ -52,8 +52,12 @@ void loop()
 
   motoFrente();
 
-  valorUm = digitalRead(s.sensorUm);
-  valorDois = digitalRead(s.sensorDois);
+  //valorUm = digitalRead(s.sensorUm);
+  //valorDois = digitalRead(s.sensorDois);
+  
+  valorUm = analogRead(s.sensorUm);
+  valorDois = analogRead(s.sensorDois);
+
   
   Serial.println(valorUm); //como se monitora dois sensores diferentes?
   delay(100);
@@ -64,10 +68,10 @@ void loop()
   {
     if(valorDois<=valorPreto) // se o sensor dois ler preto.
     {
-       for(pwm=0; pwm<255; pwm--) // o pwm irá diminuir ate 
-       {
-         analogWrite(v.enB, pwm);
-       }
+      for(pwm=0; pwm<255; pwm--) // o pwm irá diminuir ate 
+      {
+       analogWrite(v.enB, pwm);
+      }
     }
   }
   
@@ -102,8 +106,7 @@ void motoEsquerda()//função para ir para esqueda.
   
    
   digitalWrite(mB.in3, LOW);
-  digitalWrite(mB.in4, HIGH);
-  
+  digitalWrite(mB.in4, HIGH); 
 }
 
 void motoDireita ()//função para ir para direita.
